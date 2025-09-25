@@ -22,33 +22,17 @@ class CustomProductsScreen extends StatefulWidget {
 class _CustomProductsScreenState extends State<CustomProductsScreen> {
   late Future<List<Product>> _productsFuture;
   final Map<int, TextEditingController> _controllers = {};
-  late Timer _timer;
-
   @override
   void initState() {
     super.initState();
     _productsFuture = _loadProducts();
-    _startTimeVerification();
+    // El sistema de tiempo optimizado se maneja automáticamente
   }
 
   @override
   void dispose() {
-    _timer.cancel();
     _controllers.values.forEach((c) => c.dispose());
     super.dispose();
-  }
-
-  /// Inicia la verificación periódica del horario express
-  void _startTimeVerification() {
-    final expressProvider = Provider.of<ExpressProvider>(context, listen: false);
-    
-    // Verificar inmediatamente
-    expressProvider.checkExpressTime();
-
-    // Verificar cada minuto
-    _timer = Timer.periodic(const Duration(minutes: 1), (timer) async {
-      await expressProvider.checkExpressTime();
-    });
   }
 
   /// Carga los productos de la categoría y precarga las imágenes

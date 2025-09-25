@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -17,32 +16,16 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final Map<Product, TextEditingController> _controllers = {};
-  late Timer _timer;
-
   @override
   void initState() {
     super.initState();
-    _startTimeVerification();
+    // El sistema de tiempo optimizado se maneja automáticamente
   }
 
   @override
   void dispose() {
-    _timer.cancel();
     _controllers.values.forEach((c) => c.dispose());
     super.dispose();
-  }
-
-  /// Inicia la verificación periódica del horario express
-  void _startTimeVerification() {
-    final expressProvider = Provider.of<ExpressProvider>(context, listen: false);
-    
-    // Verificar inmediatamente
-    expressProvider.checkExpressTime();
-
-    // Verificar cada minuto
-    _timer = Timer.periodic(const Duration(minutes: 1), (timer) async {
-      await expressProvider.checkExpressTime();
-    });
   }
 
   @override

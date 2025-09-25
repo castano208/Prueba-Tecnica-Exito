@@ -17,33 +17,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with RouteAware {
-  late Timer _timer;
   late Future<List<String>> _categoriesFuture;
 
   @override
   void initState() {
     super.initState();
+    print('🏠 [HomeScreen] Inicializando pantalla principal...');
     _categoriesFuture = _loadCategories();
-    _startTimeVerification();
+    // El sistema de tiempo optimizado se maneja automáticamente
+    print('✅ [HomeScreen] Pantalla principal lista');
   }
 
   @override
   void dispose() {
-    _timer.cancel();
     super.dispose();
-  }
-
-  /// Inicia la verificación periódica del horario express
-  void _startTimeVerification() {
-    final expressProvider = Provider.of<ExpressProvider>(context, listen: false);
-    
-    // Verificar inmediatamente
-    expressProvider.checkExpressTime();
-
-    // Verificar cada minuto
-    _timer = Timer.periodic(const Duration(minutes: 1), (timer) async {
-      await expressProvider.checkExpressTime();
-    });
   }
 
   /// Carga las categorías de productos desde el provider
