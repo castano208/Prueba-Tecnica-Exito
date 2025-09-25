@@ -1,37 +1,38 @@
 import 'package:go_router/go_router.dart';
-import '../presentation/screens/home/inicio_screen.dart';
-import '../presentation/screens/products/productosScreen.dart';
-import '../presentation/screens/cart/pantalla_carrito.dart';
-
-//importas vista personalizada
-import '../presentation/screens/products/extra/productosScreenModificado.dart';
+import 'package:prueba_tecnica_exito_new/main.dart';
+import '../presentation/screens/home/home_screen.dart';
+import '../presentation/screens/products/products_screen.dart';
+import '../presentation/screens/cart/cart_screen.dart';
+import '../presentation/screens/products/custom_products_screen.dart';
 
 final GoRouter router = GoRouter(
   observers: [routeObserver],
   routes: [
-    // Routas para acceder a las vistas unicamente de lo solitado en la prueba tecnica
+    // Routa para la pantalla principal
     GoRoute(
       path: '/',
       builder: (context, state) => const HomeScreen(),
     ),
+    // Route para la vista de productos por categoria
     GoRoute(
-      path: '/productos/:category',
+      path: '/products/:category',
       builder: (context, state) {
-        final categoria = state.pathParameters['category']!;
-        return PantallaProductos(categoria: categoria);
+        final category = state.pathParameters['category']!;
+        return ProductsScreen(category: category);
       },
     ),
+    // Route para la vista de carrito
     GoRoute(
-      path: '/carrito',
-      builder: (context, state) => const PantallaCarrito(),
+      path: '/cart',
+      builder: (context, state) => const CartScreen(),
     ),
     
-    // Routa para acceder a las visuales personalizada de productos
+    // Route para la vista de productos personalizados
     GoRoute(
-      path: '/productosPersonalizado/:category',
+      path: '/products-custom/:category',
       builder: (context, state) {
-        final categoria = state.pathParameters['category']!;
-        return PantallaProductosModificada(categoria: categoria);
+        final category = state.pathParameters['category']!;
+        return CustomProductsScreen(category: category);
       },
     ),
   ],
